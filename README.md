@@ -3,10 +3,10 @@
 ## 📋 Project Overview
 This project aims to leverage data analysis and machine learning to enhance predictive policing efforts. By analyzing crime data from the City of Los Angeles, we identify patterns, predict potential crime hotspots, and optimize the allocation of law enforcement resources.
 
-### 💻 Contributors
-- Tarun Reddi (<a href="https://github.com/REDDITARUN">@REDDITARUN</a>)
-- Charvi Kusuma (<a href="https://github.com/kcharvi">@kcharvi</a>)
-
+## 💻 Team Members
+- Charvi Kusuma [GitHub](https://github.com/kcharvi)
+- Tarun Reddi [GitHub](https://github.com/REDDITARUN)
+  
 <p align="center">
   <img src="https://github.com/REDDITARUN/Predictive-Crime-Analysis/assets/53268025/ca2cf6e7-bbd4-446b-9ebf-38d22176beeb" alt="image">
 </p>
