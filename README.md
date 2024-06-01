@@ -1,7 +1,9 @@
-# Predictive Policing: Data-Driven Approach to Crime Analysis
+# 👁️ Crimson Eye: Data-Driven Approach to Crime Analysis
 
 ## 📋 Project Overview
 This project aims to leverage data analysis and machine learning to enhance predictive policing efforts. By analyzing crime data from the City of Los Angeles, we identify patterns, predict potential crime hotspots, and optimize the allocation of law enforcement resources.
+![image](https://github.com/REDDITARUN/Predictive-Crime-Analysis/assets/53268025/ca2cf6e7-bbd4-446b-9ebf-38d22176beeb)
+
 
 ### ❓ Problem Statement
 Understanding the multifaceted challenges of crime data analysis is crucial for:
@@ -13,6 +15,7 @@ Understanding the multifaceted challenges of crime data analysis is crucial for:
 
 ## 📊 Data Overview
 The dataset used in this project is sourced from the City of Los Angeles Open Data portal, covering crime incidents from 2020 to the present. It includes 811,663 rows and 28 columns, providing comprehensive insights into crime trends and patterns within the city.
+
 
 
 ### 📁 Phase 1: Data Collection and Preprocessing
