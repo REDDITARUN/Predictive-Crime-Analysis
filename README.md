@@ -2,7 +2,11 @@
 
 ## 📋 Project Overview
 This project aims to leverage data analysis and machine learning to enhance predictive policing efforts. By analyzing crime data from the City of Los Angeles, we identify patterns, predict potential crime hotspots, and optimize the allocation of law enforcement resources.
-![image](https://github.com/REDDITARUN/Predictive-Crime-Analysis/assets/53268025/ca2cf6e7-bbd4-446b-9ebf-38d22176beeb)
+
+
+<p align="center">
+  <img src="https://github.com/REDDITARUN/Predictive-Crime-Analysis/assets/53268025/ca2cf6e7-bbd4-446b-9ebf-38d22176beeb" alt="image">
+</p>
 
 
 ### ❓ Problem Statement
