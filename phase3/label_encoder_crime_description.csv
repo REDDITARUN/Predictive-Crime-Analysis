@@ -1,0 +1,272 @@
+['arson'],0
+"['assault', 'with', 'deadly', 'weapon', 'aggravated', 'assault']",1
+,
+"['assault', 'with', 'deadly', 'weapon', 'on', 'police', 'officer']",2
+,
+"['attempted', 'robbery']",3
+,
+"['battery', 'on', 'a', 'firefighter']",4
+,
+"['battery', 'police', 'simple']",5
+,
+"['battery', 'simple', 'assault']",6
+,
+"['battery', 'with', 'sexual', 'contact']",7
+,
+"['beastiality', 'crime', 'against', 'nature', 'sexual', 'asslt', 'with', 'anim']",8
+,
+['bigamy'],9
+,
+"['bike', 'attempted', 'stolen']",10
+,
+"['bike', 'stolen']",11
+,
+"['blocking', 'door', 'induction', 'center']",12
+,
+"['boat', 'stolen']",13
+,
+"['bomb', 'scare']",14
+,
+"['brandish', 'weapon']",15
+,
+['bribery'],16
+,
+"['bunco', 'attempt']",17
+,
+"['bunco', 'grand', 'theft']",18
+,
+"['bunco', 'petty', 'theft']",19
+,
+"['burglary', 'attempted']",20
+,
+"['burglary', 'from', 'vehicle', 'attempted']",21
+,
+"['burglary', 'from', 'vehicle']",22
+,
+['burglary'],23
+,
+"['child', 'abandonment']",24
+,
+"['child', 'abuse', 'physical', 'aggravated', 'assault']",25
+,
+"['child', 'abuse', 'physical', 'simple', 'assault']",26
+,
+"['child', 'annoying', '17yrs', 'under']",27
+,
+"['child', 'neglect', 'see', '300', 'wic']",28
+,
+"['child', 'pornography']",29
+,
+"['child', 'stealing']",30
+,
+['conspiracy'],31
+,
+"['contempt', 'of', 'court']",32
+,
+['contributing'],33
+,
+['counterfeit'],34
+,
+"['credit', 'cards', 'fraud', 'use', '950', 'under']",35
+,
+"['credit', 'cards', 'fraud', 'use', '95001', 'over']",36
+,
+"['criminal', 'homicide']",37
+,
+"['criminal', 'threats', 'no', 'weapon', 'displayed']",38
+,
+"['crm', 'agnst', 'chld', '13', 'or', 'under', '1415', 'susp', '10', 'yrs', 'older']",39
+,
+"['cruelty', 'to', 'animals']",40
+,
+"['defrauding', 'innkeepertheft', 'of', 'services', '950', 'under']",41
+,
+"['defrauding', 'innkeepertheft', 'of', 'services', 'over', '95001']",42
+,
+"['discharge', 'firearmsshots', 'fired']",43
+,
+"['dishonest', 'employee', 'attempted', 'theft']",44
+,
+"['dishonest', 'employee', 'grand', 'theft']",45
+,
+"['dishonest', 'employee', 'petty', 'theft']",46
+,
+"['disrupt', 'school']",47
+,
+"['disturbing', 'the', 'peace']",48
+,
+"['document', 'forgery', 'stolen', 'felony']",49
+,
+"['document', 'worthless', '200', 'under']",50
+,
+"['document', 'worthless', '20001', 'over']",51
+,
+"['driving', 'without', 'owner', 'consent', 'dwoc']",52
+,
+"['drugs', 'to', 'a', 'minor']",53
+,
+"['drunk', 'roll']",54
+,
+"['embezzlement', 'grand', 'theft', '95001', 'over']",55
+,
+"['embezzlement', 'petty', 'theft', '950', 'under']",56
+,
+['extortion'],57
+,
+"['failure', 'to', 'disperse']",58
+,
+"['failure', 'to', 'yield']",59
+,
+"['false', 'imprisonment']",60
+,
+"['false', 'police', 'report']",61
+,
+"['firearms', 'emergency', 'protective', 'order', 'firearms', 'epo']",62
+,
+"['firearms', 'restraining', 'order', 'firearms', 'ro']",63
+,
+"['grand', 'theft', 'auto', 'repair']",64
+,
+"['grand', 'theft', 'insurance', 'fraud']",65
+,
+"['human', 'trafficking', 'commercial', 'sex', 'acts']",66
+,
+"['human', 'trafficking', 'involuntary', 'servitude']",67
+,
+"['illegal', 'dumping']",68
+,
+"['incest', 'sexual', 'acts', 'between', 'blood', 'relatives']",69
+,
+"['indecent', 'exposure']",70
+,
+"['intimate', 'partner', 'aggravated', 'assault']",71
+,
+"['intimate', 'partner', 'simple', 'assault']",72
+,
+"['kidnapping', 'grand', 'attempt']",73
+,
+['kidnapping'],74
+,
+"['letters', 'lewd', 'telephone', 'calls', 'lewd']",75
+,
+"['lewd', 'conduct']",76
+,
+"['lewdlascivious', 'acts', 'with', 'child']",77
+,
+"['lynching', 'attempted']",78
+,
+['lynching'],79
+,
+"['manslaughter', 'negligent']",80
+,
+"['oral', 'copulation']",81
+,
+"['other', 'assault']",82
+,
+"['other', 'miscellaneous', 'crime']",83
+,
+['pandering'],84
+,
+"['peeping', 'tom']",85
+,
+"['petty', 'theft', 'auto', 'repair']",86
+,
+"['pickpocket', 'attempt']",87
+,
+['pickpocket'],88
+,
+['pimping'],89
+,
+['prowler'],90
+,
+"['purse', 'snatching', 'attempt']",91
+,
+"['purse', 'snatching']",92
+,
+"['rape', 'attempted']",93
+,
+"['rape', 'forcible']",94
+,
+"['reckless', 'driving']",95
+,
+"['replica', 'firearmssaledisplaymanufacture', 'or', 'distribute']",96
+,
+"['resisting', 'arrest']",97
+,
+['robbery'],98
+,
+"['sex', 'offender', 'registrant', 'out', 'of', 'compliance']",99
+,
+"['sexual', 'penetration', 'wforeign', 'object']",100
+,
+"['sexunlawfulinc', 'mutual', 'consent', 'penetration', 'w', 'frgn', 'obj']",101
+,
+"['shoplifting', 'attempt']",102
+,
+"['shoplifting', 'petty', 'theft', '950', 'under']",103
+,
+"['shopliftinggrand', 'theft', '95001', 'over']",104
+,
+"['shots', 'fired', 'at', 'inhabited', 'dwelling']",105
+,
+"['shots', 'fired', 'at', 'moving', 'vehicle', 'train', 'or', 'aircraft']",106
+,
+"['sodomysexual', 'contact', 'bw', 'penis', 'of', 'one', 'pers', 'to', 'anus', 'oth']",107
+,
+['stalking'],108
+,
+"['telephone', 'property', 'damage']",109
+,
+"['theft', 'coin', 'machine', 'attempt']",110
+,
+"['theft', 'coin', 'machine', 'grand', '95001', 'over']",111
+,
+"['theft', 'coin', 'machine', 'petty', '950', 'under']",112
+,
+"['theft', 'from', 'motor', 'vehicle', 'attempt']",113
+,
+"['theft', 'from', 'motor', 'vehicle', 'grand', '95001', 'and', 'over']",114
+,
+"['theft', 'from', 'motor', 'vehicle', 'petty', '950', 'under']",115
+,
+"['theft', 'from', 'person', 'attempt']",116
+,
+"['theft', 'of', 'identity']",117
+,
+"['theft', 'person']",118
+,
+"['theft', 'plain', 'attempt']",119
+,
+"['theft', 'plain', 'petty', '950', 'under']",120
+,
+"['theftgrand', '95001', 'overexcptgunsfowllivestkprod']",121
+,
+"['threatening', 'phone', 'callsletters']",122
+,
+"['throwing', 'object', 'at', 'moving', 'vehicle']",123
+,
+"['till', 'tap', 'grand', 'theft', '95001', 'over']",124
+,
+"['till', 'tap', 'petty', '950', 'under']",125
+,
+['trespassing'],126
+,
+"['unauthorized', 'computer', 'access']",127
+,
+"['vandalism', 'felony', '400', 'over', 'all', 'church', 'vandalisms']",128
+,
+"['vandalism', 'misdeameanor', '399', 'or', 'under']",129
+,
+"['vehicle', 'attempt', 'stolen']",130
+,
+"['vehicle', 'stolen', 'other', 'motorized', 'scooters', 'bikes', 'etc']",131
+,
+"['vehicle', 'stolen']",132
+,
+"['violation', 'of', 'court', 'order']",133
+,
+"['violation', 'of', 'restraining', 'order']",134
+,
+"['violation', 'of', 'temporary', 'restraining', 'order']",135
+,
+"['weapons', 'possessionbombing']",136

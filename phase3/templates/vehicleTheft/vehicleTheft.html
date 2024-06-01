@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>CrimsonEye - A Data-driven Approach to Crime Analysis</title>
+        <!-- Favicon-->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='assets/red-eye.png') }}"
+        />
+        <!-- Bootstrap Icons-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+        />
+        <!-- Google fonts-->
+        <link
+            href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <style>
+            .hidden {
+                display: none;
+            }
+            .visible {
+                display: block;
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">CrimsonEye</a>
+                <button
+                    class="navbar-toggler navbar-toggler-right"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div
+                    class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center"
+                >
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-blue">Check the safety of your vehicle now!</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <form
+                            id="vehicleTheftForm"
+                            action="{{ url_for('vehicleTheft.predict_vehicle_theft') }}"
+                            method="post"
+                        >
+                            <div class="mb-5">
+                                <label for="time" class="form-label text-blue">Time:</label>
+                                <input
+                                    type="time"
+                                    class="form-control"
+                                    id="time_now"
+                                    name="time_now"
+                                    placeholder="Enter Time"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-5">
+                                <label for="Area" class="form-label text-blue">Area:</label>
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="Area"
+                                    name="Area"
+                                    placeholder="Enter Area"
+                                    required
+                                />
+                            </div>
+
+                            <div class="mb-5">
+                                <label for="Premise_Code" class="form-label text-blue"
+                                    >Premise Type:</label
+                                >
+                                <select
+                                    class="form-control"
+                                    id="Premise_Code"
+                                    name="Premise_Code"
+                                    required
+                                >
+                                    <option value="">Select a Premise Code</option>
+                                    <option value="0.3622857142857143">Street</option>
+                                    <option value="0.4582857142857143">
+                                        Near multi-unit dwelling (apartment, duplex, etc)
+                                    </option>
+                                    <option value="0.008">Parking Lot</option>
+                                    <option value="0.0239999999999999">
+                                        Vehicle, Passenger/Truck
+                                    </option>
+                                    <option value="0.0034285714285714">Driveway</option>
+
+                                    <option value="0.0022857142857142">Alley</option>
+                                    <option value="0.2285714285714286">Gas Station</option>
+                                    <option value="0.1245714285714285">Restaurant</option>
+                                    <option value="0.0011428571428571">Sidewalk</option>
+                                    <option value="0.344">Market</option>
+
+                                    <option value="0.0251428571428571">
+                                        Parking Underground/Building
+                                    </option>
+                                    <option value="0.4617142857142857">Motel</option>
+                                    <option value="0.6857142857142857">Hospital</option>
+                                    <option value="0.3485714285714286">Random Store</option>
+                                    <option value="0.4594285714285715">Hotel</option>
+                                    <option value="0.6960000000000001">Other Premises</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <button
+                                    type="button"
+                                    class="btn btn-primary btn-xl"
+                                    onclick="generateRandomValues()"
+                                >
+                                    Generate Random Values
+                                </button>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-xl">
+                                Predict Vehicle Theft
+                            </button>
+                                                       
+
+                        </form>
+                    </div>
+                    <div
+                        id="predictedVehicleTheft"
+                        class="mt-1 {{ 'visible' if prediction else 'hidden' }}"
+                    >
+                        <div>
+                            <h3 class="text-blue">Prediction:</h3>
+                            <h4 class="text-blue" id="predictedVehicleTheftValue">
+                                {{ prediction }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="small text-center text-muted">Copyright &copy; 2023 - CrimsonEye</div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script>
+            function generateRandomValues() {
+                document.getElementById('time_now').value = getRandomTime();
+                document.getElementById('Area').value = getRandomArea();
+                document.getElementById('Premise_Code').value = getRandomPremiseCode();
+            }
+        
+            function getRandomTime() {
+                var hours = Math.floor(Math.random() * 24);
+                var minutes = Math.floor(Math.random() * 60);
+                return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+            }
+        
+            function getRandomArea() {
+                return Math.floor(Math.random() * 21) + 1;
+            }
+        
+            function getRandomPremiseCode() {
+                var premiseCodes = ["0.3622857142857143", "0.4582857142857143", "0.008", "0.0239999999999999", 
+                                    "0.0034285714285714", "0.0022857142857142", "0.2285714285714286", "0.1245714285714285",
+                                    "0.0011428571428571", "0.344", "0.0251428571428571", "0.4617142857142857", "0.6857142857142857", 
+                                    "0.3485714285714286", "0.4594285714285715", "0.6960000000000001"];
+                return premiseCodes[Math.floor(Math.random() * premiseCodes.length)];
+            }
+        </script>
+    </body>
+</html>

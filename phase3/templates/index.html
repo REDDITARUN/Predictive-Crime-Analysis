@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title class="text-blue-75">CrimsonEye - A Data-driven Approach to Crime Analysis</title>
+        <!-- Favicon-->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='assets/red-eye.png') }}"
+        />
+
+        <!-- Bootstrap Icons-->
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+        />
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+        />
+        <!-- Google fonts-->
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Roboto"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <style>
+            .chart-container {
+                padding: 20px;
+                background-color: #f8f9fa; /* Light background for the chart area */
+                border-radius: 10px; /* Rounded corners for the chart container */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+                overflow-x: auto; /* Allows horizontal scrolling if the chart is too wide */
+                /* Set a minimum height for the chart container */
+                min-height: 400px; /* Adjust this value as needed to make the chart larger */
+            }
+            canvas {
+                background-color: #fff; /* White background for the canvas */
+                border-radius: 10px; /* Rounded corners for the canvas */
+                max-width: 100%; /* Ensures the canvas is not wider than its container */
+                height: 100% !important; /* Chart will take up the height of its container */
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">CrimsonEye</a>
+                <button
+                    class="navbar-toggler navbar-toggler-right"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#contribute">Contribute</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class=" font-weight-bold" style="color: #1c355a;">
+                            Los Angeles Crime Analytics: A Data-Driven Approach for Safety and
+                            Prevention
+                        </h1>
+                        <hr class="divider" style="color: #fff;"/>
+                    </div>
+                    <div class="col-lg-8 align-self-baseline" style="color: #1c355a; font-size: large; font-weight: 600;">
+                        <p class="mb-5">
+                            Enhance your safety and situational awareness with CrimsonEye. Our
+                            platform offers real-time, location-based crime insights, empowering you
+                            with up-to-the-minute information about your surroundings. By leveraging
+                            advanced data analytics, CrimsonEye analyzes patterns and trends in
+                            criminal activities specific to your location.
+                        </p>
+                        <a class="btn btn-primary btn-xl" href="#features">Learn More</a> 
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <section class="page-section" id="features">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">At Your Features</h2>
+                <hr class="divider" />
+                <!-- Single Row with Four Columns -->
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    
+                    <!-- Feature 2 -->
+                    <div class="col-lg-3 text-center">
+                        <a class="feature-item" href="{{ url_for('vehicleTheft.home') }}">
+                            <div class="mt-5">
+                                <div class="mb-2">
+                                    <i class="bi bi-car-front-fill fs-1 text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-2">Vehicle Theft Prediction</h3>
+                                <p class="text-muted mb-0">
+                                    Check the risk on your vehicle at the current location based on
+                                    Area Code and Premises.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="col-lg-3 text-center">
+                        <a class="feature-item" href="{{ url_for('crimeStatus.home') }}">
+                            <div class="mt-5">
+                                <div class="mb-2">
+                                    <i class="bi bi-search fs-1 text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-2">Estimate Crime Difficulty</h3>
+                                <p class="text-muted mb-0">
+                                    Evaluate the current crime's complexity by predicting difficulty
+                                    through an analysis of past instances with similar
+                                    characteristics.
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                    <!-- Feature 4 -->
+                    <div class="col-lg-3 text-center">
+                        <a class="feature-item" href="{{ url_for('crimeCodeDesc.home') }}">
+                            <div class="mt-5">
+                                <div class="mb-2">
+                                    <i class="bi bi-shield-exclamation fs-1 text-primary"></i>
+                                </div>
+                                <h3 class="h4 mb-2">Forecast Crime</h3>
+                                <p class="text-muted mb-0">
+                                    Based on your area, your street location and the premise
+                                    description, predict the most prevalent crime in that locality!
+                                </p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contribute Data-->
+        <section class="page-section bg-primary" id="contribute">
+            <div class="container px-4 px-lg-5">
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <h2 class="text-white mt-0">
+                            Have You Witnessed a Crime or Been a Victim?
+                        </h2>
+                        <hr class="divider divider-light" />
+                        <p class="text-blue-75 mb-4"></p>
+                        <a
+                            class="btn btn-primary btn-xl"
+                            href="{{ url_for('contributeDetails.home') }}"
+                            >Report an Incident</a
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Crime Rates Visualization -->
+        <section class="page-section" id="charts">
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">Crime Reports Over Time</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-12 text-center">
+                        <div class="chart-container">
+                            <canvas id="myChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        
+            <br>
+        </br>
+            <div class="container px-4 px-lg-5">
+                <h2 class="text-center mt-0">Map of Los Angeles</h2>
+                <hr class="divider" />
+                <div class="row gx-4 gx-lg-5 justify-content-center">
+                    <div class="col-lg-8 text-center">
+                        <div
+                            id="mapContainer"
+                            style="height: 50vh; margin-top: 20px; margin-bottom: 20px"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="small text-center text-muted">Copyright &copy; 2023 - CrimsonEye</div>
+            </div>
+        </footer>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous"
+        ></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugi<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>n JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+                var crimeData = {
+                labels: {{ data|map(attribute='Date_Reported')|list|tojson }},
+                counts: {{ data|map(attribute='count')|list|tojson }}
+            };
+        </script>
+        <script src="{{ url_for('static', filename='js/myChartScript.js') }}"></script>
+        <script defer src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+        <script defer>
+            document.addEventListener("DOMContentLoaded", function () {
+                // Your Leaflet initialization code here
+                var map = L.map("mapContainer").setView([34.0522, -118.2437], 11);
+                L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    attribution: "&copy; OpenStreetMap contributors",
+                }).addTo(map);
+            });
+        </script>
+    </body>
+</html>
+

@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>CrimsonEye - A Data-driven Approach to Crime Analysis</title>
+        <!-- Favicon-->
+        <link
+            rel="icon"
+            type="image/x-icon"
+            href="{{ url_for('static', filename='assets/red-eye.png') }}"
+        />
+
+        <!-- Bootstrap Icons-->
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+        />
+        <!-- Google fonts-->
+        <link
+            href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700"
+            rel="stylesheet"
+        />
+        <link
+            href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+            rel="stylesheet"
+            type="text/css"
+        />
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+        <style>
+            .hidden {
+                display: none;
+            }
+            .visible {
+                display: block;
+            }
+        </style>
+    </head>
+    <body id="page-top">
+        <!-- Navigation-->
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+            <div class="container px-4 px-lg-5">
+                <a class="navbar-brand" href="#page-top">CrimsonEye</a>
+                <button
+                    class="navbar-toggler navbar-toggler-right"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!-- Masthead-->
+        <header class="masthead">
+            <div class="container px-4 px-lg-5 h-100">
+                <div
+                    class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center"
+                >
+                    <div class="col-lg-8 align-self-end">
+                        <h1 class="text-blue">Report Crime Data</h1>
+                        <hr class="divider" />
+                    </div>
+                    <div class="col-lg-8 align-self-baseline">
+                        <form
+                            action="{{ url_for('contributeDetails.submit_contribute_details') }}"
+                            method="post"
+                            id="crimeReportForm"
+                        >
+                            <!-- Row 1 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="date_reported" class="form-label text-blue"
+                                        >Date Reported:</label
+                                    >
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="date_reported"
+                                        id="date_reported"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="date_occurred" class="form-label text-blue"
+                                        >Date Occurred:</label
+                                    >
+                                    <input
+                                        type="date"
+                                        class="form-control"
+                                        name="date_occurred"
+                                        id="date_occurred"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="time_occurred" class="form-label text-blue"
+                                        >Time Occurred:</label
+                                    >
+                                    <input
+                                        type="time"
+                                        class="form-control"
+                                        name="time_occurred"
+                                        id="time_occurred"
+                                    />
+                                </div>
+                            </div>
+                            <!-- Row 2 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="Area" class="form-label text-blue"
+                                        >Area Code:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="Area"
+                                        name="Area"
+                                        placeholder="Area Code [1-21] "
+                                        required
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="Area_Name" class="form-label text-blue"
+                                        >Area Name:</label
+                                    >
+                                    <select
+                                        class="form-control"
+                                        id="Area_Name"
+                                        name="Area_Name"
+                                        required
+                                    >
+                                        <option value="1">Select a Premise Code</option>
+                                        <option value="1">Central</option>
+                                        <option value="2">Rampart</option>
+                                        <option value="3">South West</option>
+                                        <option value="4">Hollenbeck</option>
+                                        <option value="5">Harbor</option>
+
+                                        <option value="6">Hollywood</option>
+                                        <option value="7">Wilshire</option>
+                                        <option value="8">West LA</option>
+                                        <option value="9">Van Nuys</option>
+                                        <option value="10">West Valley</option>
+
+                                        <option value="11">Northeast</option>
+                                        <option value="12">77th street</option>
+                                        <option value="13">Newton</option>
+                                        <option value="14">Pacific</option>
+                                        <option value="15">N Hollywood</option>
+                                        <option value="16">Foot Hill</option>
+
+                                        <option value="17">Devonshire</option>
+                                        <option value="18">South East</option>
+                                        <option value="19">Mission</option>
+                                        <option value="20">Olympic</option>
+                                        <option value="21">Topanga</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label
+                                        for="Reporting_District_Number"
+                                        class="form-label text-blue"
+                                        >Reporting District:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="Reporting_District_Number"
+                                        name="Reporting_District_Number"
+                                        placeholder="[1303 - 2107] LA"
+                                        required
+                                    />
+                                </div>
+                            </div>
+                            <!-- Row 3 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="part_1_or_2" class="form-label text-blue"
+                                        >Part 1 or 2:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="part_1_or_2"
+                                        id="part_1_or_2"
+                                        placeholder="1 or 2"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="Crime_Code" class="form-label text-blue"
+                                        >Crime Code:</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="Crime_Code"
+                                        name="Crime_Code"
+                                        required
+                                    >
+                                        <option value="330" selected>Select a Crime Code</option>
+                                        <option value="330">330</option>
+                                        <option value="331">331</option>
+                                        <option value="341">341</option>
+                                        <option value="349">349</option>
+                                        <option value="350">350</option>
+                                        <option value="420">420</option>
+                                        <option value="430">430</option>
+                                        <option value="433">433</option>
+                                        <option value="440">440</option>
+                                        <option value="480">480</option>
+                                        <option value="510">510</option>
+                                        <option value="520">520</option>
+                                        <option value="521">521</option>
+                                        <option value="522">522</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label
+                                        for="Crime_code_description"
+                                        class="form-label text-blue"
+                                        >Crime Code Description:</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="Crime_code_description"
+                                        name="Crime_code_description"
+                                        required
+                                    >
+                                        <option value="0" selected>
+                                            Select a Crime Description
+                                        </option>
+                                        <option value="1">['arson']</option>
+                                        <option value="2">
+                                            ['assault', 'with', 'deadly', 'weapon', 'aggravated',
+                                            'assault']
+                                        </option>
+                                        <option value="3">
+                                            ['assault', 'with', 'deadly', 'weapon', 'on', 'police',
+                                            'officer']
+                                        </option>
+                                        <option value="4">['attempted', 'robbery']</option>
+                                        <option value="5">
+                                            ['battery', 'on', 'a', 'firefighter']
+                                        </option>
+                                        <option value="6">['battery', 'police', 'simple']</option>
+                                        <option value="7">['battery', 'simple', 'assault']</option>
+                                        <option value="8">
+                                            ['battery', 'with', 'sexual', 'contact']
+                                        </option>
+                                        <option value="9">
+                                            ['beastiality', 'crime', 'against', 'nature', 'sexual',
+                                            'asslt', 'with', 'anim']
+                                        </option>
+                                        <option value="10">['bigamy']</option>
+                                        <option value="11">['bike', 'attempted', 'stolen']</option>
+                                        <option value="12">['bike', 'stolen']</option>
+                                        <option value="13">
+                                            ['blocking', 'door', 'induction', 'center']
+                                        </option>
+                                        <option value="14">['boat', 'stolen']</option>
+                                        <option value="15">['bomb', 'scare']</option>
+                                        <option value="16">['brandish', 'weapon']</option>
+                                        <option value="17">['bribery']</option>
+                                        <option value="18">['bunco', 'attempt']</option>
+                                        <option value="19">['bunco', 'grand', 'theft']</option>
+                                        <option value="20">['bunco', 'petty', 'theft']</option>
+                                        <option value="21">['burglary', 'attempted']</option>
+                                        <option value="22">
+                                            ['burglary', 'from', 'vehicle', 'attempted']
+                                        </option>
+                                        <option value="23">['burglary', 'from', 'vehicle']</option>
+                                        <option value="24">['burglary']</option>
+                                        <option value="25">['child', 'abandonment']</option>
+                                        <option value="26">
+                                            ['child', 'abuse', 'physical', 'aggravated', 'assault']
+                                        </option>
+                                        <option value="27">
+                                            ['child', 'abuse', 'physical', 'simple', 'assault']
+                                        </option>
+                                        <option value="28">
+                                            ['child', 'annoying', '17yrs', 'under']
+                                        </option>
+                                        <option value="29">
+                                            ['child', 'neglect', 'see', '300', 'wic']
+                                        </option>
+                                        <option value="30">['child', 'pornography']</option>
+                                        <option value="31">['child', 'stealing']</option>
+                                        <option value="32">['conspiracy']</option>
+                                        <option value="33">['contempt', 'of', 'court']</option>
+                                        <option value="34">['contributing']</option>
+                                        <option value="35">['counterfeit']</option>
+                                        <option value="36">
+                                            ['credit', 'cards', 'fraud', 'use', '950', 'under']
+                                        </option>
+                                        <option value="37">
+                                            ['credit', 'cards', 'fraud', 'use', '95001', 'over']
+                                        </option>
+                                        <option value="38">['criminal', 'homicide']</option>
+                                        <option value="39">
+                                            ['criminal', 'threats', 'no', 'weapon', 'displayed']
+                                        </option>
+                                        <option value="40">
+                                            ['crm', 'agnst', 'chld', '13', 'or', 'under', '1415',
+                                            'susp', '10', 'yrs', 'older']
+                                        </option>
+                                        <option value="41">['cruelty', 'to', 'animals']</option>
+                                        <option value="42">
+                                            ['defrauding', 'innkeepertheft', 'of', 'services',
+                                            '950', 'under']
+                                        </option>
+                                        <option value="43">
+                                            ['defrauding', 'innkeepertheft', 'of', 'services',
+                                            'over', '95001']
+                                        </option>
+                                        <option value="44">
+                                            ['discharge', 'firearmsshots', 'fired']
+                                        </option>
+                                        <option value="45">
+                                            ['dishonest', 'employee', 'attempted', 'theft']
+                                        </option>
+                                        <option value="46">
+                                            ['dishonest', 'employee', 'grand', 'theft']
+                                        </option>
+                                        <option value="47">
+                                            ['dishonest', 'employee', 'petty', 'theft']
+                                        </option>
+                                        <option value="48">['disrupt', 'school']</option>
+                                        <option value="49">['disturbing', 'the', 'peace']</option>
+                                        <option value="50">
+                                            ['document', 'forgery', 'stolen', 'felony']
+                                        </option>
+                                        <option value="51">
+                                            ['document', 'worthless', '200', 'under']
+                                        </option>
+                                        <option value="52">
+                                            ['document', 'worthless', '20001', 'over']
+                                        </option>
+                                        <option value="53">
+                                            ['driving', 'without', 'owner', 'consent', 'dwoc']
+                                        </option>
+                                        <option value="54">['drugs', 'to', 'a', 'minor']</option>
+                                        <option value="55">['drunk', 'roll']</option>
+                                        <option value="56">
+                                            ['embezzlement', 'grand', 'theft', '95001', 'over']
+                                        </option>
+                                        <option value="57">
+                                            ['embezzlement', 'petty', 'theft', '950', 'under']
+                                        </option>
+                                        <option value="58">['extortion']</option>
+                                        <option value="59">['failure', 'to', 'disperse']</option>
+                                        <option value="60">['failure', 'to', 'yield']</option>
+                                        <option value="61">['false', 'imprisonment']</option>
+                                        <option value="62">['false', 'police', 'report']</option>
+                                        <option value="63">
+                                            ['firearms', 'emergency', 'protective', 'order',
+                                            'firearms', 'epo']
+                                        </option>
+                                        <option value="64">
+                                            ['firearms', 'restraining', 'order', 'firearms', 'ro']
+                                        </option>
+                                        <option value="65">
+                                            ['grand', 'theft', 'auto', 'repair']
+                                        </option>
+                                        <option value="66">
+                                            ['grand', 'theft', 'insurance', 'fraud']
+                                        </option>
+                                        <option value="67">
+                                            ['human', 'trafficking', 'commercial', 'sex', 'acts']
+                                        </option>
+                                        <option value="68">
+                                            ['human', 'trafficking', 'involuntary', 'servitude']
+                                        </option>
+                                        <option value="69">['illegal', 'dumping']</option>
+                                        <option value="70">
+                                            ['incest', 'sexual', 'acts', 'between', 'blood',
+                                            'relatives']
+                                        </option>
+                                        <option value="71">['indecent', 'exposure']</option>
+                                        <option value="72">
+                                            ['intimate', 'partner', 'aggravated', 'assault']
+                                        </option>
+                                        <option value="73">
+                                            ['intimate', 'partner', 'simple', 'assault']
+                                        </option>
+                                        <option value="74">
+                                            ['kidnapping', 'grand', 'attempt']
+                                        </option>
+                                        <option value="75">['kidnapping']</option>
+                                        <option value="76">
+                                            ['letters', 'lewd', 'telephone', 'calls', 'lewd']
+                                        </option>
+                                        <option value="77">['lewd', 'conduct']</option>
+                                        <option value="78">
+                                            ['lewdlascivious', 'acts', 'with', 'child']
+                                        </option>
+                                        <option value="79">['lynching', 'attempted']</option>
+                                        <option value="80">['lynching']</option>
+                                        <option value="81">['manslaughter', 'negligent']</option>
+                                        <option value="82">['oral', 'copulation']</option>
+                                        <option value="83">['other', 'assault']</option>
+                                        <option value="84">
+                                            ['other', 'miscellaneous', 'crime']
+                                        </option>
+                                        <option value="85">['pandering']</option>
+                                        <option value="86">['peeping', 'tom']</option>
+                                        <option value="87">
+                                            ['petty', 'theft', 'auto', 'repair']
+                                        </option>
+                                        <option value="88">['pickpocket', 'attempt']</option>
+                                        <option value="89">['pickpocket']</option>
+                                        <option value="90">['pimping']</option>
+                                        <option value="91">['prowler']</option>
+                                        <option value="92">
+                                            ['purse', 'snatching', 'attempt']
+                                        </option>
+                                        <option value="93">['purse', 'snatching']</option>
+                                        <option value="94">['rape', 'attempted']</option>
+                                        <option value="95">['rape', 'forcible']</option>
+                                        <option value="96">['reckless', 'driving']</option>
+                                        <option value="97">
+                                            ['replica', 'firearmssaledisplaymanufacture', 'or',
+                                            'distribute']
+                                        </option>
+                                        <option value="98">['resisting', 'arrest']</option>
+                                        <option value="99">['robbery']</option>
+                                        <option value="100">
+                                            ['sex', 'offender', 'registrant', 'out', 'of',
+                                            'compliance']
+                                        </option>
+                                        <option value="101">
+                                            ['sexual', 'penetration', 'wforeign', 'object']
+                                        </option>
+                                        <option value="102">
+                                            ['sexunlawfulinc', 'mutual', 'consent', 'penetration',
+                                            'w', 'frgn', 'obj']
+                                        </option>
+                                        <option value="103">['shoplifting', 'attempt']</option>
+                                        <option value="104">
+                                            ['shoplifting', 'petty', 'theft', '950', 'under']
+                                        </option>
+                                        <option value="105">
+                                            ['shopliftinggrand', 'theft', '95001', 'over']
+                                        </option>
+                                        <option value="106">
+                                            ['shots', 'fired', 'at', 'inhabited', 'dwelling']
+                                        </option>
+                                        <option value="107">
+                                            ['shots', 'fired', 'at', 'moving', 'vehicle', 'train',
+                                            'or', 'aircraft']
+                                        </option>
+                                        <option value="108">
+                                            ['sodomysexual', 'contact', 'bw', 'penis', 'of', 'one',
+                                            'pers', 'to', 'anus', 'oth']
+                                        </option>
+                                        <option value="109">['stalking']</option>
+                                        <option value="110">
+                                            ['telephone', 'property', 'damage']
+                                        </option>
+                                        <option value="111">
+                                            ['theft', 'coin', 'machine', 'attempt']
+                                        </option>
+                                        <option value="112">
+                                            ['theft', 'coin', 'machine', 'grand', '95001', 'over']
+                                        </option>
+                                        <option value="113">
+                                            ['theft', 'coin', 'machine', 'petty', '950', 'under']
+                                        </option>
+                                        <option value="114">
+                                            ['theft', 'from', 'motor', 'vehicle', 'attempt']
+                                        </option>
+                                        <option value="115">
+                                            ['theft', 'from', 'motor', 'vehicle', 'grand', '95001',
+                                            'and', 'over']
+                                        </option>
+                                        <option value="116">
+                                            ['theft', 'from', 'motor', 'vehicle', 'petty', '950',
+                                            'under']
+                                        </option>
+                                        <option value="117">
+                                            ['theft', 'from', 'person', 'attempt']
+                                        </option>
+                                        <option value="118">['theft', 'of', 'identity']</option>
+                                        <option value="119">['theft', 'person']</option>
+                                        <option value="120">['theft', 'plain', 'attempt']</option>
+                                        <option value="121">
+                                            ['theft', 'plain', 'petty', '950', 'under']
+                                        </option>
+                                        <option value="122">
+                                            ['theftgrand', '95001', 'overexcptgunsfowllivestkprod']
+                                        </option>
+                                        <option value="123">
+                                            ['threatening', 'phone', 'callsletters']
+                                        </option>
+                                        <option value="124">
+                                            ['throwing', 'object', 'at', 'moving', 'vehicle']
+                                        </option>
+                                        <option value="125">
+                                            ['till', 'tap', 'grand', 'theft', '95001', 'over']
+                                        </option>
+                                        <option value="126">
+                                            ['till', 'tap', 'petty', '950', 'under']
+                                        </option>
+                                        <option value="127">['trespassing']</option>
+                                        <option value="128">
+                                            ['unauthorized', 'computer', 'access']
+                                        </option>
+                                        <option value="129">
+                                            ['vandalism', 'felony', '400', 'over', 'all', 'church',
+                                            'vandalisms']
+                                        </option>
+                                        <option value="130">
+                                            ['vandalism', 'misdeameanor', '399', 'or', 'under']
+                                        </option>
+                                        <option value="131">
+                                            ['vehicle', 'attempt', 'stolen']
+                                        </option>
+                                        <option value="132">
+                                            ['vehicle', 'stolen', 'other', 'motorized', 'scooters',
+                                            'bikes', 'etc']
+                                        </option>
+                                        <option value="133">['vehicle', 'stolen']</option>
+                                        <option value="134">
+                                            ['violation', 'of', 'court', 'order']
+                                        </option>
+                                        <option value="135">
+                                            ['violation', 'of', 'restraining', 'order']
+                                        </option>
+                                        <option value="136">
+                                            ['violation', 'of', 'temporary', 'restraining', 'order']
+                                        </option>
+                                        <option value="137">
+                                            ['weapons', 'possessionbombing']
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- Row 4 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="victim_age" class="form-label text-blue"
+                                        >Victim Age:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        name="victim_age"
+                                        id="victim_age"
+                                        placeholder="Victim Age"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="victim_sex" class="form-label text-blue"
+                                        >Victim Sex:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="victim_sex"
+                                        id="victim_sex"
+                                        \
+                                        placeholder="Victim Sex"
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="victim_descent" class="form-label text-blue"
+                                        >Victim Descent:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="victim_descent"
+                                        id="victim_descent"
+                                        placeholder="Victim Descent"
+                                    />
+                                </div>
+                            </div>
+                            <!-- Row 5 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="Premise_Code" class="form-label text-blue"
+                                        >Premise Type:</label
+                                    >
+                                    <select
+                                        class="form-control"
+                                        id="Premise_Code"
+                                        name="Premise_Code"
+                                        required
+                                    >
+                                        <option value="0">Select a Premise Code</option>
+                                        <option value="0.3622857142857143">Street</option>
+                                        <option value="0.4582857142857143">
+                                            Near multi-unit dwelling (apartment, duplex, etc)
+                                        </option>
+                                        <option value="0.008">Parking Lot</option>
+                                        <option value="0.0239999999999999">
+                                            Vehicle, Passenger/Truck
+                                        </option>
+                                        <option value="0.0034285714285714">Driveway</option>
+
+                                        <option value="0.0022857142857142">Alley</option>
+                                        <option value="0.2285714285714286">Gas Station</option>
+                                        <option value="0.1245714285714285">Restaurant</option>
+                                        <option value="0.0011428571428571">Sidewalk</option>
+                                        <option value="0.344">Market</option>
+
+                                        <option value="0.0251428571428571">
+                                            Parking Underground/Building
+                                        </option>
+                                        <option value="0.4617142857142857">Motel</option>
+                                        <option value="0.6857142857142857">Hospital</option>
+                                        <option value="0.3485714285714286">Random Store</option>
+                                        <option value="0.4594285714285715">Hotel</option>
+                                        <option value="0.6960000000000001">Other Premises</option>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-4 mb-3">
+                                    <label for="premise_description" class="form-label text-blue"
+                                        >Premise Description:</label
+                                    >
+                                    <textarea
+                                        class="form-control"
+                                        name="premise_description"
+                                        id="premise_description"
+                                        rows="1"
+                                    ></textarea>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="status_description" class="form-label text-blue"
+                                        >Status Description:</label
+                                    >
+                                    <input
+                                        type="text"
+                                        class="form-control"
+                                        name="status_description"
+                                        id="status_description"
+                                    />
+                                </div>
+                            </div>
+                            <!-- Row 6 -->
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="Latitude" class="form-label text-blue"
+                                        >Latitude:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="Latitude"
+                                        name="Latitude"
+                                        step="any"
+                                        placeholder="[33 to 35]"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="Longitude" class="form-label text-blue"
+                                        >Longitude:</label
+                                    >
+                                    <input
+                                        type="number"
+                                        class="form-control"
+                                        id="Longitude"
+                                        name="Longitude"
+                                        placeholder="[-118 to -119]"
+                                        step="any"
+                                        required
+                                    />
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="Location_Type" class="form-label text-blue"
+                                        >Location Type:</label
+                                    >
+                                    <select
+                                        class="form-select"
+                                        id="Location_Type"
+                                        name="Location_Type"
+                                        required
+                                    >
+                                        <option value="0" selected>Select a Location Type</option>
+                                        <option value="0">103rd Street</option>
+                                        <option value="1">1st Street</option>
+                                        <option value="2">21st Street</option>
+                                        <option value="3">22nd Street</option>
+                                        <option value="4">23rd Street</option>
+                                        <option value="5">2nd Street</option>
+                                        <option value="6">3rd Street</option>
+                                        <option value="7">41st Street</option>
+                                        <option value="8">42nd Street</option>
+                                        <option value="9">43rd Street</option>
+                                        <option value="10">51st Street</option>
+                                        <option value="11">52nd Street</option>
+                                        <option value="12">53rd Street</option>
+                                        <option value="13">62nd Street</option>
+                                        <option value="14">73rd Street</option>
+                                        <option value="15">81st Street</option>
+                                        <option value="16">82nd Street</option>
+                                        <option value="17">83rd Street</option>
+                                        <option value="18">92nd Street</option>
+                                        <option value="19">Avenue</option>
+                                        <option value="20">Boulevard</option>
+                                        <option value="21">Drive</option>
+                                        <option value="22">Drive Lane</option>
+                                        <option value="23">Lane brea Avenue</option>
+                                        <option value="24">Lane cienega Boulevard</option>
+                                        <option value="25">Lane soto Avenue</option>
+                                        <option value="26">Place</option>
+                                        <option value="27">Road</option>
+                                        <option value="28">Street</option>
+                                        <option value="29">Street andrews Place</option>
+                                        <option value="30">Unknown</option>
+                                        <option value="31">Way</option>
+                                        <option value="32">adams Boulevard</option>
+                                        <option value="33">anaheim Street</option>
+                                        <option value="34">ardmore Avenue</option>
+                                        <option value="35">avalon Boulevard</option>
+                                        <option value="36">barrington Avenue</option>
+                                        <option value="37">bonnie brae Street</option>
+                                        <option value="38">broadway</option>
+                                        <option value="39">bronson Avenue</option>
+                                        <option value="40">burlington Avenue</option>
+                                        <option value="41">canyon Avenue</option>
+                                        <option value="42">canyon Boulevard</option>
+                                        <option value="43">centinela Avenue</option>
+                                        <option value="44">central Avenue</option>
+                                        <option value="45">century Boulevard</option>
+                                        <option value="46">cesar e chavez Avenue</option>
+                                        <option value="47">cienega Boulevard</option>
+                                        <option value="48">cochran Avenue</option>
+                                        <option value="49">coronado Street</option>
+                                        <option value="50">ct</option>
+                                        <option value="51">detroit Street</option>
+                                        <option value="52">fairfax Avenue</option>
+                                        <option value="53">feliz Boulevard</option>
+                                        <option value="54">figueroa Street</option>
+                                        <option value="55">florence Avenue</option>
+                                        <option value="56">flower Street</option>
+                                        <option value="57">front wk</option>
+                                        <option value="58">fuller Avenue</option>
+                                        <option value="59">gaffey Street</option>
+                                        <option value="60">gage Avenue</option>
+                                        <option value="61">harvard Boulevard</option>
+                                        <option value="62">imperial Highway</option>
+                                        <option value="63">jefferson Boulevard</option>
+                                        <option value="64">kenmore Avenue</option>
+                                        <option value="65">kingsley Drive</option>
+                                        <option value="66">lake Street</option>
+                                        <option value="67">las palmas Avenue</option>
+                                        <option value="68">los angeles Street</option>
+                                        <option value="69">new hampshire Avenue</option>
+                                        <option value="70">nuys Boulevard</option>
+                                        <option value="71">oak Avenue</option>
+                                        <option value="72">olive Street</option>
+                                        <option value="73">olympic Boulevard</option>
+                                        <option value="74">orange Drive</option>
+                                        <option value="75">oxford Avenue</option>
+                                        <option value="76">park Avenue</option>
+                                        <option value="77">pico Boulevard</option>
+                                        <option value="78">rampart Boulevard</option>
+                                        <option value="79">robertson Boulevard</option>
+                                        <option value="80">sepulveda Boulevard</option>
+                                        <option value="81">serrano Avenue</option>
+                                        <option value="82">slauson Avenue</option>
+                                        <option value="83">spring Street</option>
+                                        <option value="84">sunset Boulevard</option>
+                                        <option value="85">sycamore Avenue</option>
+                                        <option value="86">temple Street</option>
+                                        <option value="87">tijera Boulevard</option>
+                                        <option value="88">tr</option>
+                                        <option value="89">union Avenue</option>
+                                        <option value="90">van ness Avenue</option>
+                                        <option value="91">ventura Boulevard</option>
+                                        <option value="92">vermont Avenue</option>
+                                        <option value="93">vernon Avenue</option>
+                                        <option value="94">way</option>
+                                        <option value="95">western Avenue</option>
+                                        <option value="96">westlake Avenue</option>
+                                        <option value="97">wilton Place</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-xl">Submit</button>
+                            <br>
+                        </br>
+                                <button type="button" class="btn btn-primary btn-xl" onclick="generateRandomReport()">Generate Random Data</button>
+                            
+                        </form>
+                        <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                            <div class="result-container mt-3 {{ 'visible' if results else 'hidden' }}">
+                                    {% if results %}
+                                    <div class="mt-3">
+                                        <h4 class="text-blue">{{ results }}</h4>
+                                    </div>
+                                    {% endif %}
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+        <!-- Footer-->
+        <footer class="bg-light py-5">
+            <div class="container px-4 px-lg-5">
+                <div class="small text-center text-muted">Copyright &copy; 2023 - CrimsonEye</div>
+            </div>
+        </footer>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- SimpleLightbox plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+        <!-- Core theme JS-->
+        <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+        <script>
+            function generateRandomReport() {
+                document.getElementById("date_reported").value = getRandomDate();
+                document.getElementById("date_occurred").value = getRandomDate();
+                document.getElementById("time_occurred").value = getRandomTime();
+                document.getElementById("Area").value = getRandomInt(1, 21);
+                document.getElementById("Area_Name").value = getRandomInt(1, 21); // Assuming 1 to 21 are valid indices
+                document.getElementById("Reporting_District_Number").value = getRandomInt(1303, 2107);
+                document.getElementById("part_1_or_2").value = getRandomInt(1, 2);
+                document.getElementById("Crime_Code").value = getRandomCrimeCode();
+                document.getElementById("Crime_code_description").value = getRandomInt(1, 137);
+                document.getElementById("victim_age").value = getRandomInt(1, 99); // Assuming a reasonable age range
+                document.getElementById("victim_sex").value = getRandomSex();
+                document.getElementById("victim_descent").value = getRandomDescent();
+                document.getElementById("Premise_Code").value = getRandomPremiseCode();
+                document.getElementById("premise_description").value = getRandomText(10);
+                document.getElementById("status_description").value = getRandomText(10);
+                document.getElementById("Latitude").value = getRandomFloat(33, 35);
+                document.getElementById("Longitude").value = getRandomFloat(-119, -118);
+                document.getElementById("Location_Type").value = getRandomInt(0, 97); // Assuming 0 to 97 are valid indices
+            }
+        
+            function getRandomDate() {
+                var year = 2023; // Set the desired year
+                var month = getRandomInt(1, 12);
+                var day = getRandomInt(1, 28); // Adjust based on the maximum days in a month
+                return year + '-' + (month < 10 ? '0' : '') + month + '-' + (day < 10 ? '0' : '') + day;
+            }
+        
+            function getRandomTime() {
+                var hours = getRandomInt(0, 23);
+                var minutes = getRandomInt(0, 59);
+                return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+            }
+        
+            function getRandomInt(min, max) {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        
+            function getRandomFloat(min, max) {
+                return (Math.random() * (max - min) + min).toFixed(6);
+            }
+        
+            function getRandomSex() {
+                var sexes = ['Male', 'Female', 'Other'];
+                return sexes[Math.floor(Math.random() * sexes.length)];
+            }
+        
+            function getRandomDescent() {
+                var descents = ['Asian', 'Black', 'White', 'Hispanic', 'Other'];
+                return descents[Math.floor(Math.random() * descents.length)];
+            }
+        
+            function getRandomPremiseCode() {
+                var premiseCodes = ["0.3622857142857143", "0.4582857142857143", "0.008", "0.0239999999999999",
+                    "0.0034285714285714", "0.0022857142857142", "0.2285714285714286", "0.1245714285714285",
+                    "0.0011428571428571", "0.344", "0.0251428571428571", "0.4617142857142857", "0.6857142857142857",
+                    "0.3485714285714286", "0.4594285714285715", "0.6960000000000001"];
+                return premiseCodes[Math.floor(Math.random() * premiseCodes.length)];
+            }
+        
+            function getRandomText(length) {
+                var text = "";
+                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+                for (var i = 0; i < length; i++) {
+                    text += possible.charAt(Math.floor(Math.random() * possible.length));
+                }
+                return text;
+            }
+            function getRandomCrimeCode() {
+                var crimeCodevalues = [ ,"331"
+                                        ,"341"
+                                        ,"349"
+                                        ,"350"
+                                        ,"420"
+                                        ,"430"
+                                        ,"433"
+                                        ,"440"
+                                        ,"480"
+                                        ,"510"
+                                        ,"520"
+                                        ,"521"
+                                        ,"522"]
+                return crimeCodevalues[Math.floor(Math.random() * crimeCodevalues.length)];
+                
+            }
+        </script>
+        
+    </body>
+</html>

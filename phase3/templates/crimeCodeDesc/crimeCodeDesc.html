@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>CrimsonEye - A Data-driven Approach to Crime Analysis</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='assets/red-eye.png') }}" />
+    <!-- Bootstrap Icons-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <!-- Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Merriweather+Sans:400,700" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic"
+        rel="stylesheet" type="text/css" />
+    <!-- Core theme CSS (includes Bootstrap)-->
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet" />
+    <style>
+        .hidden {
+            display: none;
+        }
+
+        .visible {
+            display: block;
+        }
+    </style>
+    <style>
+        .result-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+    <!-- Navigation-->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top py-3" id="mainNav">
+        <div class="container px-4 px-lg-5">
+            <a class="navbar-brand" href="#page-top">CrimsonEye</a>
+            <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- Masthead-->
+    <header class="masthead">
+        <div class="container px-4 px-lg-5 h-100">
+            <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center">
+                <div class="col-lg-8 align-self-end">
+                    <h1 class="text-blue">Predict Crime Code Description</h1>
+                    <hr class="divider" />
+                </div>
+                <div class="col-lg-8 align-self-baseline">
+                    <form id="crimeCodeDescForm" action="{{ url_for('crimeCodeDesc.predict_crime_code_desc') }}"
+                        method="post">
+                        <!-- Time Occurred -->
+                        <div class="mb-5">
+                            <label for="Time_Occurred" class="form-label text-blue">Time Occurred:</label>
+                            <input type="time" class="form-control" id="Time_Occurred" name="Time_Occurred" required />
+                        </div>
+                        <!-- Premise Code -->
+                        <div class="mb-5">
+                            <label for="Premise_Code" class="form-label text-blue">Premise Code:</label>
+                            <select class="form-control" id="Premise_Code" name="Premise_Code" required>
+                                <option value="">Select a Premise Code</option>
+                                <option value="0.3622857142857143">Street</option>
+                                <option value="0.4582857142857143">
+                                    Near multi-unit dwelling (apartment, duplex, etc)
+                                </option>
+                                <option value="0.008">Parking Lot</option>
+                                <option value="0.0239999999999999">
+                                    Vehicle, Passenger/Truck
+                                </option>
+                                <option value="0.0034285714285714">Driveway</option>
+
+                                <option value="0.0022857142857142">Alley</option>
+                                <option value="0.2285714285714286">Gas Station</option>
+                                <option value="0.1245714285714285">Restaurant</option>
+                                <option value="0.0011428571428571">Sidewalk</option>
+                                <option value="0.344">Market</option>
+
+                                <option value="0.0251428571428571">
+                                    Parking Underground/Building
+                                </option>
+                                <option value="0.4617142857142857">Motel</option>
+                                <option value="0.6857142857142857">Hospital</option>
+                                <option value="0.3485714285714286">Random Store</option>
+                                <option value="0.4594285714285715">Hotel</option>
+                                <option value="0.6960000000000001">Other Premises</option>
+                            </select>
+                        </div>
+                        <!-- Area -->
+                        <div class="mb-5">
+                            <label for="Area" class="form-label text-blue">Area:</label>
+                            <input type="number" class="form-control" id="Area" name="Area"
+                                placeholder="Enter Area Number [1-21]" required />
+                        </div>
+                        <!-- Location Type -->
+                        <div class="mb-5">
+                            <label for="Location_Type" class="form-label text-blue">Location Type:</label>
+                            <select class="form-select" id="Location_Type" name="Location_Type" required>
+                                <option value="" selected>Select a Location Type</option>
+                                <option value="0">103rd Street</option>
+                                <option value="1">1st Street</option>
+                                <option value="2">21st Street</option>
+                                <option value="3">22nd Street</option>
+                                <option value="4">23rd Street</option>
+                                <option value="5">2nd Street</option>
+                                <option value="6">3rd Street</option>
+                                <option value="7">41st Street</option>
+                                <option value="8">42nd Street</option>
+                                <option value="9">43rd Street</option>
+                                <option value="10">51st Street</option>
+                                <option value="11">52nd Street</option>
+                                <option value="12">53rd Street</option>
+                                <option value="13">62nd Street</option>
+                                <option value="14">73rd Street</option>
+                                <option value="15">81st Street</option>
+                                <option value="16">82nd Street</option>
+                                <option value="17">83rd Street</option>
+                                <option value="18">92nd Street</option>
+                                <option value="19">Avenue</option>
+                                <option value="20">Boulevard</option>
+                                <option value="21">Drive</option>
+                                <option value="22">Drive Lane</option>
+                                <option value="23">Lane brea Avenue</option>
+                                <option value="24">Lane cienega Boulevard</option>
+                                <option value="25">Lane soto Avenue</option>
+                                <option value="26">Place</option>
+                                <option value="27">Road</option>
+                                <option value="28">Street</option>
+                                <option value="29">Street andrews Place</option>
+                                <option value="30">Unknown</option>
+                                <option value="31">Way</option>
+                                <option value="32">adams Boulevard</option>
+                                <option value="33">anaheim Street</option>
+                                <option value="34">ardmore Avenue</option>
+                                <option value="35">avalon Boulevard</option>
+                                <option value="36">barrington Avenue</option>
+                                <option value="37">bonnie brae Street</option>
+                                <option value="38">broadway</option>
+                                <option value="39">bronson Avenue</option>
+                                <option value="40">burlington Avenue</option>
+                                <option value="41">canyon Avenue</option>
+                                <option value="42">canyon Boulevard</option>
+                                <option value="43">centinela Avenue</option>
+                                <option value="44">central Avenue</option>
+                                <option value="45">century Boulevard</option>
+                                <option value="46">cesar e chavez Avenue</option>
+                                <option value="47">cienega Boulevard</option>
+                                <option value="48">cochran Avenue</option>
+                                <option value="49">coronado Street</option>
+                                <option value="50">ct</option>
+                                <option value="51">detroit Street</option>
+                                <option value="52">fairfax Avenue</option>
+                                <option value="53">feliz Boulevard</option>
+                                <option value="54">figueroa Street</option>
+                                <option value="55">florence Avenue</option>
+                                <option value="56">flower Street</option>
+                                <option value="57">front wk</option>
+                                <option value="58">fuller Avenue</option>
+                                <option value="59">gaffey Street</option>
+                                <option value="60">gage Avenue</option>
+                                <option value="61">harvard Boulevard</option>
+                                <option value="62">imperial Highway</option>
+                                <option value="63">jefferson Boulevard</option>
+                                <option value="64">kenmore Avenue</option>
+                                <option value="65">kingsley Drive</option>
+                                <option value="66">lake Street</option>
+                                <option value="67">las palmas Avenue</option>
+                                <option value="68">los angeles Street</option>
+                                <option value="69">new hampshire Avenue</option>
+                                <option value="70">nuys Boulevard</option>
+                                <option value="71">oak Avenue</option>
+                                <option value="72">olive Street</option>
+                                <option value="73">olympic Boulevard</option>
+                                <option value="74">orange Drive</option>
+                                <option value="75">oxford Avenue</option>
+                                <option value="76">park Avenue</option>
+                                <option value="77">pico Boulevard</option>
+                                <option value="78">rampart Boulevard</option>
+                                <option value="79">robertson Boulevard</option>
+                                <option value="80">sepulveda Boulevard</option>
+                                <option value="81">serrano Avenue</option>
+                                <option value="82">slauson Avenue</option>
+                                <option value="83">spring Street</option>
+                                <option value="84">sunset Boulevard</option>
+                                <option value="85">sycamore Avenue</option>
+                                <option value="86">temple Street</option>
+                                <option value="87">tijera Boulevard</option>
+                                <option value="88">tr</option>
+                                <option value="89">union Avenue</option>
+                                <option value="90">van ness Avenue</option>
+                                <option value="91">ventura Boulevard</option>
+                                <option value="92">vermont Avenue</option>
+                                <option value="93">vernon Avenue</option>
+                                <option value="94">way</option>
+                                <option value="95">western Avenue</option>
+                                <option value="96">westlake Avenue</option>
+                                <option value="97">wilton Place</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <button
+                                type="button"
+                                class="btn btn-primary btn-xl"
+                                onclick="generateRandomValues()"
+                            >
+                                Generate Random Values
+                            </button>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-xl me-2">
+                            Predict Crime Code Description
+                        </button>
+                       
+                        
+                        
+                    </form>
+                    <div class="row gx-4 gx-lg-5 h-100 align-items-center justify-content-center text-center " >
+                        <div class="result-container mt-3 {{ 'visible' if prediction else 'hidden' }}">
+                        {% if prediction %}
+                        <div class="mt-3">
+                            <h3 class="text-blue">Predicted Crime Code Description:</h3>
+                            <h4 class="text-blue">{{ prediction }}</h4>
+                        </div>
+                        {% endif %}
+                    </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </header>
+
+    <!-- Footer-->
+    <footer class="bg-light py-5">
+        <div class="container px-4 px-lg-5">
+            <div class="small text-center text-muted">Copyright &copy; 2023 - CrimsonEye</div>
+        </div>
+    </footer>
+    <!-- Bootstrap core JS-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- SimpleLightbox plugin JS-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/SimpleLightbox/2.1.0/simpleLightbox.min.js"></script>
+    <!-- Core theme JS-->
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script>
+        function generateRandomValues() {
+            document.getElementById("Time_Occurred").value = getRandomTime();
+            document.getElementById("Premise_Code").value = getRandomPremiseCode();
+            document.getElementById("Area").value = getRandomInt(1, 21);
+            document.getElementById("Location_Type").value = getRandomInt(0, 97); // Assuming 0 to 97 are valid indices
+        }
+
+        function getRandomTime() {
+            var hours = Math.floor(Math.random() * 24);
+            var minutes = Math.floor(Math.random() * 60);
+            return (hours < 10 ? '0' : '') + hours + ':' + (minutes < 10 ? '0' : '') + minutes;
+        }
+
+        function getRandomPremiseCode() {
+            var premiseCodes = ["0.3622857142857143", "0.4582857142857143", "0.008", "0.0239999999999999",
+                "0.0034285714285714", "0.0022857142857142", "0.2285714285714286", "0.1245714285714285",
+                "0.0011428571428571", "0.344", "0.0251428571428571", "0.4617142857142857", "0.6857142857142857",
+                "0.3485714285714286", "0.4594285714285715", "0.6960000000000001"];
+            return premiseCodes[Math.floor(Math.random() * premiseCodes.length)];
+        }
+
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+    </script>
+
+</body>
+
+</html>
