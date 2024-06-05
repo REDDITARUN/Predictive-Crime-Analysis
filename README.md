@@ -1,5 +1,9 @@
 # 👁️ Crimson Eye: Data-Driven Approach to Crime Analysis
 
+## Team Members
+- **Charvi Kusuma** [GitHub](https://github.com/kcharvi)
+- **Tarun Reddi** [GitHub](https://github.com/REDDITARUN)
+
 ## 📋 Project Overview
 
 This project aims to leverage data analysis and machine learning to enhance predictive policing efforts. By analyzing crime data from the City of Los Angeles, we identify patterns, predict potential crime hotspots, and optimize the allocation of law enforcement resources.
